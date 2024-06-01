@@ -1,6 +1,5 @@
 import firebase from "firebase/app";
 import 'firebase/firestore';
-
 import  "firebase/auth";
 import  "firebase/firestore";
 import  "firebase/storage";
@@ -28,6 +27,7 @@ const firebaseConfig = {
  const auth=firebase.auth();
  const db=firebase.firestore();
  const storage=firebase.storage()
+ 
 
  db.enablePersistence().catch((e)=>{
 
@@ -43,5 +43,5 @@ const firebaseConfig = {
 // const analytics = getAnalytics(app);
 
 export{
-    auth,db,userCollection,storage,songsCollection,commentsCollection,singersCollection
+    auth,db,userCollection,storage,songsCollection,commentsCollection,singersCollection,firebase
 }

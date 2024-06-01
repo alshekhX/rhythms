@@ -1,4 +1,6 @@
-export default{
+import { generateCodeFrame } from "vue/compiler-sfc";
+
+export default {
 
     formatTime(time){
 
@@ -6,5 +8,9 @@ export default{
         const secounds= Math.floor(time-mins*60) ||0
 
         return `${mins}:${secounds<10? '0':''}${secounds}`
-    }
+    },
+
+   
+
+
 }

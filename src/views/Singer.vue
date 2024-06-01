@@ -4,15 +4,15 @@
       <div class="flex  flex-col justify-normal ">
 
 
-        <div class="  text-start font-bold sm:text-8xl text-3xl md:text-5xl  xl:m-0 xl:pt-8 mx-auto p-4 mb-4 text-white">
-          {{ singer.english_name }} </div>
+        <div class="   underline   text-start font-bold sm:text-8xl text-3xl md:text-5xl  xl:m-0 xl:pt-8 mx-auto p-4 mb-4 text-white">
+          {{getSingerName}} </div>
 
 
       </div>
       <img :src="singer.imageUrl" class="mb-4 mx-auto xl:m-0 xl:pt-8 " alt="">
 
       <p class=" text-md font-semi sm:text-2xl  leading-relaxed  xl:m-0 lg:pb-8 text-justify lg:p-4 mx-auto mb-4 text-white w-3/4">
-        {{ singer.english_des }}
+       {{getSingerDes}}
       </p>
 
 
@@ -25,7 +25,7 @@
       <div class="px-6 pt-6 pb-5 font-bold border-t border-r mb-4  mx-4 border-8 border-gray-700" 
         
         >
-          <span class="card-title text-3xl">Songs</span>
+          <span class="card-title text-3xl">{{$t("song.songs")}}</span>
           <!-- Icon -->
 
         </div>
@@ -61,6 +61,20 @@ export default {
       songs: [],
 
     }
+  },
+  computed:{
+    
+
+    getSingerName(){
+
+return this.$i18n.locale==='en'?this.singer.english_name :this.singer.arabic_name ;
+},
+
+
+getSingerDes(){
+
+return this.$i18n.locale==='en'?this.singer.english_des :this.singer.arabic_des ;
+},
   }
   ,
   async created() {

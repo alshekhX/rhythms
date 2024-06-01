@@ -10,7 +10,7 @@
             'hover:text-white text-white bg-red-700': tab === 'song',
             'hover:text-blue-600': tab === 'song'
 
-          }" href="#">Edit Songs</a>
+          }" href="#">{{ $t("manage.editSongs") }}</a>
         </li>
         <li class="flex-auto text-center" @click.prevent="tab = 'singer'">
           <a class="block rounded py-3 px-4 transition" href="#" :class="{
@@ -18,7 +18,7 @@
             'hover:text-blue-600': tab === 'singer'
 
 
-          }">Edit Singers</a>
+          }">{{ $t("manage.editSingers") }}</a>
         </li>
       </ul>
 
@@ -33,7 +33,7 @@
         <div class="col-span-2">
           <div class="bg-white rounded border border-gray-200 relative flex flex-col">
             <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
-              <span class="card-title">My Songs</span>
+              <span class="card-title">{{$t("manage.mySongs")}} </span>
               <i class="fa fa-compact-disc float-right text-green-400 text-2xl"></i>
             </div>
 
@@ -56,7 +56,7 @@
         <div class="col-span-1">
           <div class="bg-white rounded border border-gray-200 relative flex flex-col">
             <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
-              <span class="card-title">My Songs</span>
+              <span class="card-title">{{$t("manage.singers")}}</span>
               <i class="fa fa-compact-disc float-right text-green-400 text-2xl"></i>
             </div>
             <div class="p-6">

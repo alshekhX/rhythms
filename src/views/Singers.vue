@@ -1,13 +1,13 @@
 <template>
     <section class="bg-red-700 mb-14   pb-8">
       <div class="header-container m-auto container">
-        <div class="  text-start font-bold sm:text-8xl text-6xl  mb-1 p-4 text-white">
-          Artist <br> Collections
+        <div class="  text-start font-bold sm:text-8xl  text-5xl whitespace-pre-line  mb-1 p-4 text-white">
+          {{ $t("singers.main") }}
+
         </div>
         <p class=" text-xl font-semi sm:text-2xl xl:pt-8 px-4 mb-1 leading-relaxed  text-white  lg:w-5/6">
-   Explore the lives and stories of the singers who
-          shaped Sudan's musical landscape. Find out about their musical styles, their journeys, and the unforgettable songs
-          they left behind. 
+          {{ $t("singers.description") }}
+
         </p>
   
       </div>
@@ -19,7 +19,8 @@
         <div class="px-6 pt-6 pb-5 font-bold border-t  border-r mx-4 mb-4 border-8 border-gray-700" 
         
         >
-          <span class="card-title text-3xl">Artists</span>
+          <span class="card-title text-3xl">          {{ $t("singers.artists") }}
+</span>
           <!-- Icon -->
 
         </div>
@@ -121,7 +122,6 @@ this.pendingRequest = false;
 </script>
 
   <style>
-  
   
   .author-card {
   

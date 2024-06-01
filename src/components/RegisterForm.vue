@@ -1,60 +1,59 @@
 <template>
-  <vee-form :initial-values="userData" class="py-5" :validation-schema="schema" @submit="register">
+  <vee-form  class="py-5" :validation-schema="schema" @submit="register">
     <div class="text-white text-center font-bold p-4 mb-4" v-show="reg_alert_show" :class="reg_alert_variant">
 
       {{ reg_alert_msg }}
     </div>
     <!-- Name -->
     <div class="mb-3">
-      <label class="inline-block mb-2">Name</label>
+      <label class="inline-block mb-2">{{ $t("auth.name") }}</label>
       <vee-field type="text" name="name"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-        placeholder="Enter Name" />
+        :placeholder='$t("auth.enterName")' />
       <ErrorMessage name="name" class="text-red-600" />
     </div>
     <!-- Email -->
     <div class="mb-3">
-      <label class="inline-block mb-2">Email</label>
+      <label class="inline-block mb-2">{{ $t("auth.email") }}</label>
       <vee-field type="email" name="email"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-        placeholder="Enter Email" />
+        :placeholder='$t("auth.enterEmail")' />
       <ErrorMessage name="email" class="text-red-600" />
 
     </div>
     <!-- Age -->
     <div class="mb-3">
-      <label class="inline-block mb-2">Age</label>
+      <label class="inline-block mb-2">{{ $t("auth.age") }}</label>
       <vee-field name="age" type="number"
-        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded" />
+      :placeholder='$t("auth.enterAge")'  class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded" />
       <ErrorMessage name="age" class="text-red-600" />
 
     </div>
     <!-- Password -->
     <div class="mb-3">
-      <label class="inline-block mb-2">Password</label>
+      <label class="inline-block mb-2">{{ $t("auth.password") }}</label>
       <vee-field v-slot="{ field, errors }" type="password" name="password"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-        placeholder="Password" :bails="false">
+        :placeholder='$t("auth.enterPass")' :bails="false">
         <input type="password" v-bind="field"
           class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-          placeholder="Password">
+          :placeholder='$t("auth.enterPass")'>
         <div class="text-red-600" v-for="error in errors" :key="error">
           {{ error }}</div>
       </vee-field>
-      <ErrorMessage name="password" class="text-red-600" />
 
     </div>
     <!-- Confirm Password -->
     <div class="mb-3">
-      <label class="inline-block mb-2">Confirm Password</label>
+      <label class="inline-block mb-2">{{ $t("auth.confirmPass") }}</label>
       <vee-field name="confirm_password" type="password"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-        placeholder="Confirm Password" />
+        :placeholder='$t("auth.confirmPass")' />
       <ErrorMessage name="confirm_password" class="text-red-600" />
 
     </div>
     <!-- Country -->
-    <div class="mb-3">
+    <!-- <div class="mb-3">
       <label class="inline-block mb-2">Country</label>
       <vee-field as="select" name="country"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded">
@@ -62,14 +61,14 @@
         <option value="Mexico">Mexico</option>
         <option value="Germany">Germany</option>
       </vee-field>
-      <ErrorMessage name="country" class="text-red-600" />
+      <ErrorMessage name="country" class="text-red-600" /> -->
 
-    </div>
+    <!-- </div> -->
     <!-- TOS -->
     <div class="mb-3 pl-6">
       <vee-field name="tos" type="checkbox" value="1" class="w-4 h-4 float-left -ml-6 mt-1 rounded" />
 
-      <label class="inline-block">Accept terms of service</label>
+      <label class="inline-block">{{ $t("auth.tos") }}</label>
 
     </div>
     <ErrorMessage name="tos" class="text-red-600" />
@@ -77,7 +76,7 @@
 
     <button type="submit" :disabled="reg_in_submission"
       class="block w-full bg-blue-600 text-white py-1.5 px-3 rounded transition hover:bg-blue-700">
-      Submit
+      {{ $t("auth.submit") }}
     </button>
   </vee-form>
 </template>
@@ -97,13 +96,13 @@ export default {
         age: "required|min_value:13|max_value:120",
         password: "required|min:4|max:10|excluded:password",
         confirm_password: "password_match:@password",
-        country: "required",
+        // country: "required",
         tos: "tos"
       },
 
-      userData: {
-        country: 'USA'
-      },
+      // userData: {
+      //   country: 'USA'
+      // },
 
       reg_in_submission: false,
       reg_alert_show: false,

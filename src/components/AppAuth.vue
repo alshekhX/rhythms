@@ -14,7 +14,7 @@
         <div class="py-4 text-left px-6">
           <!--Title-->
           <div class="flex justify-between items-center pb-4">
-            <p class="text-2xl font-bold">Your Account</p>
+            <p class="text-2xl font-bold">{{$t("auth.account")}}</p>
             <!-- Modal Close Button -->
             <div class="modal-close cursor-pointer z-50" @click.prevent="modelVisibility = false">
               <i class="fas fa-times"></i>
@@ -28,7 +28,7 @@
                 'hover:text-white text-white bg-blue-600': tab === 'login',
                 'hover:text-blue-600': tab === 'register'
 
-              }" href="#">Login</a>
+              }" href="#">{{$t("auth.login")}}</a>
             </li>
             <li class="flex-auto text-center" @click.prevent="tab = 'register'">
               <a class="block rounded py-3 px-4 transition" href="#" :class="{
@@ -36,7 +36,7 @@
                 'hover:text-blue-600': tab === 'login'
 
 
-              }">Register</a>
+              }">{{$t("auth.reg")}}</a>
             </li>
           </ul>
 

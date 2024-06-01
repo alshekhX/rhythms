@@ -10,7 +10,7 @@
       <div class="flex flex-nowrap gap-4 items-center">
         <!-- Play/Pause Button -->
         <button type="button" @click.prevent="toggleSong">
-          <i class="fa  text-gray-500 text-xl" :class="{'fa-play':!playing,'fa-pause':playing}"></i>
+          <i v-if="isLoading" class="fa fa-spinner"></i>      <i v-else class="fa  text-gray-500 text-xl" :class="{'fa-play':!playing,'fa-pause':playing}"></i>
         </button>
         <!-- Current Position -->
         <div class="player-currenttime">{{ seek }}</div>
@@ -45,7 +45,7 @@ export default {
         ...mapActions(usePlayerStore,['toggleSong','updateSeek'])
     },
     computed:{
-        ...mapState(usePlayerStore,['playing','seek','duration','playerProgress','current_song'])
+        ...mapState(usePlayerStore,['playing','seek','isLoading', 'duration','playerProgress','current_song'])
     }
    
 }

@@ -19,6 +19,7 @@ export default defineStore('player', {
       this.current_song = song
       this.sound = new Howl({
         src: [this.current_song.url],
+      
         html5: true
       })
       this.sound.play()
@@ -67,6 +68,8 @@ const seconds= this.sound.duration()*precentage;
   },
   getters:{
 
+    
+
     playing:(state)=>{
 
 if(state.sound.playing){
@@ -75,6 +78,17 @@ if(state.sound.playing){
 
 return false
 
+    },
+    isLoading:(state)=>{
+
+      if(state.sound.loading){
+        return state.sound.loading()
     }
+    
+    return false
+
+    },
+
+
   }
 })

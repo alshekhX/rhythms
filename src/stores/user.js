@@ -5,7 +5,8 @@ import { auth, userCollection } from "@/includes/firebase.js";
 
 export default defineStore('user',{
 state:()=>({
-userLoggedIn:false
+userLoggedIn:false,
+lang:"en"
 }),
 actions:{
 
@@ -16,7 +17,6 @@ const userCred= await auth.createUserWithEmailAndPassword(values.email, values.p
             name: values.name,
             email: values.email,
             age: values.age,
-            country: values.country,
   
           })
 

@@ -3,7 +3,7 @@
     <img :src='singer.imageUrl ? singer.imageUrl : "https://cdn-icons-png.flaticon.com/512/2919/2919906.png"'
       class=" w-32 h-32" alt="https://cdn-icons-png.flaticon.com/512/2919/2919906.png">
     <router-link class=" text-3xl font-bold  underline  opacity-90" :to="{ name: 'singer', params: { id: singer.id } }"> {{
-      singer.english_name }}</router-link>
+      getSingerName }}</router-link>
 
     <p class="  py-5 text-black  text-opacity-75 w-full lg:w-5/6 font-semibold  text-xl  leading-relaxed">
       {{ trimSingerDes }} ...
@@ -26,19 +26,31 @@ export default {
   },
   computed:{
 
+    getSingerName(){
+
+      return this.$i18n.locale==='en'?this.singer.english_name :this.singer.arabic_name ;
+    },
+
 trimSingerDes(){
 let description;
 
-  var words = this.singer.english_des.split(" ");
-  if(words.length>=200){
-for (let i = 0; i < 200; i++) {
+let local_des =this.$i18n.locale==='en'?this.singer.english_des :this.singer.arabic_des ;
+
+  var words = local_des.split(" ");
+  if(words.length>=80){
+    
+for (let i = 0; i < 80; i++) {
+ 
  description += words[i] + " ";
+
 }
-return description;
+
+
+return description.replace("undefined","");
 
   }
   else{
-    return this.singer.english_des
+    return local_des;
   }
 }
 

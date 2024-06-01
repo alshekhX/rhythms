@@ -5,7 +5,7 @@ import "./assets/base.css"
 import "./assets/main.css"
 import Icon from '@/directives/icon.js'
 
-import {auth} from "./includes/firebase"
+import {auth,firebase} from "./includes/firebase"
 import i18n from '@/includes/i18n.js'
 import GlobalComponents from '@/includes/_global.js'
 
@@ -26,6 +26,7 @@ auth.onAuthStateChanged(()=>{
 if(!app){
 
  app = createApp(App)
+ firebase.analytics;
  app.use(createPinia())
  app.use(router)
  app.use(VeeValidationPlugin)

@@ -2,7 +2,7 @@
     <div>
         <div class="bg-white rounded border border-gray-200 relative flex flex-col">
             <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
-                <span class="card-title">Add Singer</span>
+                <span class="card-title">{{ $t("manage.addSinger") }}</span>
             </div>
             
 
@@ -13,36 +13,36 @@
       </div>
 
                 <div class="mb-3">
-                    <label class="inline-block mb-2">Name in English</label>
+                    <label class="inline-block mb-2">{{ $t("manage.forms.nameEn") }}</label>
                     <vee-field name="english_name" type="text"
                         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                        placeholder="Enter name In english" />
+                        :placeholder=' $t("manage.forms.enterNameEn") ' />
                     <ErrorMessage name="english_name" class="text-red-600"/>
 
                 </div>
                 <!-- Password -->
                 <div class="mb-3">
-                    <label class="inline-block mb-2">Name in arabic</label>
+                    <label class="inline-block mb-2">{{ $t("manage.forms.nameAr") }}</label>
                     <vee-field name="arabic_name" type="text"
                         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                        placeholder="Enter name in arabic" />
+                        :placeholder=' $t("manage.forms.enterNameAr") ' />
                     <ErrorMessage name="arabic_name" class="text-red-600"/>
 
                     <!-- Password -->
                     <div class="mb-3">
-                        <label class="inline-block mb-2">Description in english</label>
+                        <label class="inline-block mb-2">{{ $t("manage.forms.desEn") }}</label>
                         <vee-field as="textarea" name="english_des" type="text"
                             class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                            placeholder="Enter description in english" />
+                            :placeholder=' $t("manage.forms.enterDesEn") ' />
                         <ErrorMessage name="english_des" class="text-red-600"/>
                     </div>
 
                     <!-- Password -->
                     <div class="mb-3">
-                        <label class="inline-block mb-2">Description in arabic</label>
+                        <label class="inline-block mb-2">{{ $t("manage.forms.desAr") }}</label>
                         <vee-field as="textarea" name="arabic_des" type="text"
                             class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                            placeholder="Enter description in arabic" />
+                            :placeholder=' $t("manage.forms.enterDesAr") ' />
                         <ErrorMessage name="arabic_des" class="text-red-600"/>
                     </div>
 
@@ -50,9 +50,8 @@
                 </div>
                 <button  type="submit" :disabled="in_submission"
               class="block py-3  my-4 w-full bg-purple-600 self-center text-white py-1.5 px-3 rounded transition hover:bg-purple-700">
-              Add 
+              {{ $t("manage.add") }} 
             </button>
-
             </vee-form>
 
 

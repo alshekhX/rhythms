@@ -2,7 +2,7 @@
   <div class=" songs-center">
     <div class="flex flex-col  px-3    item-width    my-4 mr-5  cursor-pointer transition duration-300 hover:bg-red-50">
       <div class="">
-        <img
+        <img  class=" h-48  w-full "
           :src="song.imageUrl?song.imageUrl:tempImg"
           alt="">
       </div>
@@ -13,7 +13,7 @@
         <div class="flex flex-col px-1 py-2">
           <router-link :to="{ name: 'song', params: { id: song.id } }" class="font-bold  text-gray-600">{{ song.modefied_name
           }}</router-link>
-          <div class="text-gray-500 text-sm font-bold"><span class="text-sm">Artist: </span>{{ song.singer_name }}</div>
+          <div class="text-gray-500 text-sm font-bold"><span class="text-sm">Artist: </span>{{ getSingerName }}</div>
         </div>
       </div>
 
@@ -68,6 +68,11 @@ this.toggleSong();
     }
   },},
   computed:{
+    
+    getSingerName(){
+
+return this.$i18n.locale==='en'?this.song.singer_name :this.song.singer_arabic_name ;
+},
     ...mapState(usePlayerStore,['playing','current_song'])
 
   },

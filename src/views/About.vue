@@ -1,22 +1,56 @@
 <template >
-   <section class="bg-red-700 mb-14   pb-8">
-      <div class="header-container m-auto container">
-        <div class="  text-start font-bold sm:text-8xl text-6xl  mb-1 p-4 text-white">
-          About <br> Us
-        </div>
-        <p class=" text-xl font-semi sm:text-2xl xl:pt-8 px-4 mb-1  leading-relaxed  text-white  lg:w-5/6">
-          History, religion, culture, ways of life, Arabic melodies, African rhythms. The rich mix that produced
-        soul-grabbing rhythms and melodies in Sudan.
-        Rhythms of Sudan, provide a collection of high-quality music that
-        captures the essence of traditional Sudanese sounds.
-        </p>
-  
-  
-  
-  
+  <section class="bg-red-700   -mb-11  overflow-y-hidden  pb-8">
+    <div class="header-container   mx-auto container">
+      <div class="  whitespace-pre-line text-start font-bold sm:text-8xl text-6xl  xl:mb-14 p-4 text-white">
+        {{ $t("about.main") }}
       </div>
-  
-<!-- 
+      <div>
+        <p class=" text-xl font-semi sm:text-2xl xl:pt-8 px-4 mb-1  leading-relaxed  text-white  lg:w-5/6">
+          {{ $t("about.first_description") }}
+
+
+        </p>
+
+        <img class="   xl:hidden block w-80 mx-auto mt-8"
+          src="https://static.vecteezy.com/system/resources/previews/012/987/029/original/hand-drawn-of-sudan-3d-map-png.png"
+          alt="" srcset="">
+
+      </div>
+
+
+
+
+      <p class="mt-12 text-xl font-semi sm:text-2xl xl:pt-8 px-4 mb-1  leading-relaxed  text-white  lg:w-5/6">
+        {{ $t("about.second_description") }}
+
+      </p>
+    
+      <img class="  hidden xl:w-96 xl:block"
+          src="https://static.vecteezy.com/system/resources/previews/012/987/029/original/hand-drawn-of-sudan-3d-map-png.png"
+          alt="" srcset="">
+
+
+    </div>
+    <div class="mt-32 mb-16 container mx-auto grid  gap-y-10  p-4 grid-cols-2 lg:grid-cols-4 ">
+        <img class="  h-56  object-contain  w-56"
+          src="https://www5.0zz0.com/2017/06/26/18/203987009.jpg"
+          alt="" srcset="">
+          <img class="  h-56  object-contain w-56"
+          src="https://pan-african-music.com/wp-content/uploads/2020/05/0ee12936-sharhabil-ahmed.jpg"
+          alt="" srcset="">
+          <img class="  h-56   pr-2 object-contain w-56"
+          src="https://resalnews.com/wp-content/uploads/2021/07/FB_IMG_1625770031495-780x470.jpg"
+          alt="" srcset="">
+          <img class="  h-56  object-contain w-56"
+          src="https://i1.sndcdn.com/artworks-GzGbRGCubI4hymOm-IF4ePw-t500x500.jpg"
+          alt="" srcset="">
+          
+          
+      </div>
+
+
+
+    <!-- 
     <div class="main-grid container  pt-24">
 
 

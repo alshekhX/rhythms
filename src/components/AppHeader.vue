@@ -7,30 +7,30 @@
           >RS</router-link
         >
 
-        <ul class="  mobile-nav  flex-col " :class="{active:openNav}" >
+        <ul class="  mobile-nav  flex-col " ref="hamMenu" :class="{active:openNav}" >
             <!-- Navigation Links -->
             <li>
-              <router-link class="px-3 text-white" :to="{name:'home'}">Home</router-link>
+              <router-link class="px-3 text-white" :to="{name:'home'}">{{ $t("header.home") }}</router-link>
             </li>
            
             <li>
-              <router-link class="px-3 text-white" :to="{name:'singers'}">Singers</router-link>
+              <router-link class="px-3 text-white" :to="{name:'singers'}">{{ $t("header.singers") }}</router-link>
             </li>
             <li>
-              <router-link class="px-3 text-white" :to="{name:'about'}">About</router-link>
+              <router-link class="px-3 text-white" :to="{name:'about'}">{{ $t("header.about") }}</router-link>
             </li>
             <li v-if="!userStore.userLoggedIn">
-              <a class="px-3 text-white" href="#"  @click.prevent="authValueToggle">Login / Register</a>
+              <a class="px-3 text-white" href="#"  @click.prevent="authValueToggle">{{ $t("header.log_reg") }}</a>
             </li>
             <template v-else>
               <li>
-              <router-link class="px-3 text-white" :to="{name:'manage'}">Manage</router-link>
+              <router-link class="px-3 text-white" :to="{name:'manage'}">{{ $t("header.manage") }}</router-link>
             </li>
             <li>
-              <a class="px-3 text-white" href="#" @click.prevent="signOut()">Logout</a>
+              <a class="px-3 text-white" href="#" @click.prevent="signOut()">{{ $t("header.logout") }}</a>
             </li>
             </template>
-            <li><a class="px-3 text-white" href="#" @click.prevent="changeLocale">{{ currentLocale }}</a></li>
+            <li><a class="px-3 text-white font-bold" href="#" @click.prevent="changeLocale">{{ currentLocale }}</a></li>
 
           </ul>
 
@@ -48,24 +48,24 @@
           <ul class="prime-nav flex flex-row mt-1">
             <!-- Navigation Links -->
             <li>
-              <router-link class="px-3 text-white" :to="{name:'home'}">Home</router-link>
+              <router-link class="px-3 text-white" :to="{name:'home'}">{{ $t("header.home") }}</router-link>
             </li>
            
             <li>
-              <router-link class="px-3 text-white" :to="{name:'singers'}">Singers</router-link>
+              <router-link class="px-3 text-white" :to="{name:'singers'}">{{ $t("header.singers") }}</router-link>
             </li>
             <li>
-              <router-link class="px-3 text-white" :to="{name:'about'}">About</router-link>
+              <router-link class="px-3 text-white" :to="{name:'about'}">{{ $t("header.about") }}</router-link>
             </li>
             <li v-if="!userStore.userLoggedIn">
-              <a class="px-3 text-white" href="#"  @click.prevent="authValueToggle">Login / Register</a>
+              <a class="px-3 text-white" href="#"  @click.prevent="authValueToggle">{{ $t("header.log_reg") }}</a>
             </li>
             <template v-else>
               <li>
-              <router-link class="px-3 text-white" :to="{name:'manage'}">Manage</router-link>
+              <router-link class="px-3 text-white" :to="{name:'manage'}">{{ $t("header.manage") }}</router-link>
             </li>
             <li>
-              <a class="px-3 text-white" href="#" @click.prevent="signOut()">Logout</a>
+              <a class="px-3 text-white" href="#" @click.prevent="signOut()">{{ $t("header.logout") }}</a>
             </li>
             </template>
            
@@ -73,7 +73,7 @@
           
         </div>
         <ul class="locale-prime ml-auto">
-            <li><a class="px-2 text-white" href="#" @click.prevent="changeLocale">{{ currentLocale }}</a></li>
+            <li><a class="px-2 text-white  font-bold" href="#" @click.prevent="changeLocale">{{ currentLocale }}</a></li>
           </ul>
       </nav>
     </header>
@@ -82,7 +82,7 @@
 
 <script>
 
-import { mapStores,mapActions } from "pinia";
+import { mapStores,mapActions,mapState } from "pinia";
 import useModalStore from "../stores/modal";
 import useUserStore from "../stores/user";
 
@@ -95,15 +95,26 @@ return{
   },
 
   computed:{
+    ...mapState(useUserStore,['lang']),
     ...mapStores(useModalStore,useUserStore),
     currentLocale(){
-      return this.$i18n.locale==='en'?'English':'Arabic'
+      return this.$i18n.locale==='en'?'English':'العربية'
+
     }
  
 
-  }
+  },
+  mounted() {
+  document.addEventListener('click', this.handleClickOutside);
+},
+beforeDestroy() {
+  document.removeEventListener('click', this.handleClickOutside);
+}
   ,methods:{
-
+    handleClickOutside(event) {
+    if (!this.$el.contains(event.target) && this.openNav) {
+      this.openNav = false;
+    }},
     ...mapActions(useUserStore,["signOut"]),
     authValueToggle(){
     this.modalStore.isOpen= !this.modalStore.isOpen;
@@ -113,6 +124,7 @@ return{
   changeLocale(){
 
     this.$i18n.locale= this.$i18n.locale==='en'?'ar':'en'
+  // this.lang=this.$i18n.locale;
   },
  async signOut() {
 await this.userStore.signOut();

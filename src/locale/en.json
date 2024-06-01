@@ -1,12 +1,108 @@
 {
- "home":{
+   "home":{
+  
+      "description":"Listen to high quality sudanese music. \n from the golden era",
+      "songs":"Songs"
+   },
+   "singers":{
+"main":"Artists \nCollection",
+"description":"Explore the lives and stories of the singers who shaped Sudan's musical landscape. Find out about their musical styles, their journeys, and the unforgettable songs they left behind.",
+"artists":"Artists"
 
-    "listen":"Listen to Great Music!"
- },
- "song":{
-"comment_count":"NO comment  | Comment (1) | Comments ({count})"
+   },
+   "about":{
+      "main":"About \nThe Site",
+      "first_description":"History, religion, culture, ways of life, Arabic melodies, African rhythms. The rich mix that produced soul-grabbing rhythms and melodies in Sudan. "
+      ,
+      "second_description":"Rhythms of Sudan provides a window into sudan rich musical heritage. It explores the different styles that shaped its sound, from rhythms inspired by traditional ways of life like 'tm tm' and 'aljarari' to incorporating modern Western styles; know more about the poets, singers, and producers who shaped Sudanese music."
+   },
+   "header":{
 
- }
+"home":"Home",
+"singers":"Singers",
+"about":"About",
+"log_reg":"Login/Register",
+"manage":"Manage",
+"logout":"Logout"
+
+   },
+   "song":{
+
+      "songs":"Songs",
+      "comment_count":"no comments | (1) comment | ({count}) comments",
+      "addComment":"Add your comment here",
+      "pleaseWait":"Please Wait! Your Comment is being submitted",
+      "commentAdded":"Comment Added!"
 
 
+   },
+   "auth":{
+
+"login":"Login",
+"reg":"Register",
+"account":"Your Account",
+
+"email":"Email",
+"password":"Password",
+"confirmPass":"Confirm Password",
+"name":"Name",
+"age":"Age",
+
+"enterPass":"Enter your password",
+"enterEmail":"Enter your email",
+"enterName":"Enter your name",
+"enterAge":"Enter your age",
+
+"tos":"Accept terms of service",
+"submit":"Submit"
+
+   },
+
+   
+"manage":{
+
+"editSingers":"Edit Singers",
+"editSongs":"Edit Songs",
+"upload":"Upload",
+"mySongs":"My Songs",
+"singers":"Singers",
+"drop":"Drop  your files Here",
+"choose":"Choose Files",
+"addSong":"Upload Songs",
+"addSinger":"Add Singers",
+"add":"Add",
+"forms":{
+"title":"title",
+"genre":"Genre",
+"singer":"Singer",
+"enterSongTitle":"Enter Song Title",
+"enterGenre":"Enter Genre",
+"enterSinger":"Enter Singer",
+
+   "submit":"Submit",
+"goback":"Go Back"
+,
+"nameAr":"Name in arabic",
+"nameEn":"Name in english",
+"desAr":"Description in arabic",
+"desEn":"Description in english"
+,
+"enterNameAr":"Enter name in arabic",
+"enterNameEn":"Enter name in english",
+"enterDesAr":"Enter description in arabic",
+"enterDesEn":"Enter description in english"
+
+
+
+
+
+
+   
 }
+
+
+},
+"artist":"Artist"
+
+  
+  }

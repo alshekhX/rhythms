@@ -10,6 +10,7 @@ export default {
   },
   data() {
     return {
+      loading:true,
       songs: [],
       maxPerPage: 8,
       pendingRequest: false
@@ -17,6 +18,7 @@ export default {
   },
   async created() {
     await this.getSongs();
+
     window.addEventListener('scroll', this.handleScroll)
 
   }
@@ -43,6 +45,7 @@ export default {
       if (this.pendingRequest == true) {
         return;
       }
+      this.loading=true;
 
       this.pendingRequest = true;
 
@@ -67,6 +70,8 @@ export default {
         })
       })
       this.pendingRequest = false;
+      this.loading=false;
+
 
     }
   }
@@ -84,8 +89,8 @@ export default {
           <!-- <h1 class="font-bold text-5xl mb-1 px-4">{{ $t("home.listen") }}</h1> -->
           <h1 class=" text-start font-bold sm:text-8xl text-6xl  mb-1 p-4">Rhythms<br>Of Sudan</h1>
 
-          <p class="w-full text-2xl text-start mb-4 pb-2  mx-auto px-4 ">
-            Listen to high quality sudanese music<br> from the gold era.
+          <p class="w-full text-2xl text-start mb-4 pb-2  mx-auto px-4  whitespace-pre-line">
+            {{ $t("home.description") }}
           </p>
         </div>
         <div><img src="/assets/img/singers/collage.jpg" class="     object-fill" alt=""></div>
@@ -115,23 +120,25 @@ export default {
     <!-- Main Content -->
     <section class="container  mx-auto ">
       <div class="relative flex flex-col">
-        <div class="px-6 pt-6 pb-5 font-bold border-t border-r mb-4  mx-4 border-8 border-gray-700" 
-        
-        >
-          <span class="card-title text-3xl">Songs</span>
+        <div class="px-6 pt-6 pb-5 font-bold border-t border-r mb-4  mx-4 border-8 border-gray-700">
+          <span class="card-title text-3xl">            {{ $t("home.songs") }}
+</span>
           <!-- Icon -->
 
         </div>
         <!-- Playlist -->
         <section class="container  items-center mx-auto">
-          <div id="playlist" class=" container songs-container  ">
-            <app-song-item v-for="song in songs" :song="song" :key="song.id" >
+          <div  id="playlist" class=" container songs-container  ">
+            <app-song-item v-for="song in songs" :song="song" :key="song.id">
 
             </app-song-item>
+
+           
 
 
 
           </div>
+        
         </section>
         <!-- .. end Playlist -->
       </div>
@@ -141,9 +148,7 @@ export default {
 
 
 <style  scoped>
-
-
-.header-container{
+.header-container {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 
@@ -151,14 +156,14 @@ export default {
 }
 
 @media (max-width:1300px) {
-  
-.header-container{
-  display: grid;
-  grid-template-columns: repeat(1, minmax(0, 1fr));
+
+  .header-container {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
 
 
-}
-  
+  }
+
 }
 
 
@@ -168,7 +173,8 @@ export default {
   /* Three columns of equal width */
   grid-auto-flow: dense;
   /* Enables wrapping behavior */
-  
+
   gap: 10px;
   /* Spacing between grid items */
-}</style>
+}
+</style>

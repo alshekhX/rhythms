@@ -17,35 +17,35 @@
         </div>
         <vee-form :initial-values="singer" :validation-schema="schema" @submit="editSinger">
             <div class="mb-3">
-                    <label class="inline-block mb-2">Name in English</label>
+                    <label class="inline-block mb-2">{{ $t("manage.forms.nameEn") }}</label>
                     <vee-field  @input="changeUpdatedFlag(true)" name="english_name" type="text"
                         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                        placeholder="Enter name In english" />
+                        :placeholder='$t("manage.forms.enterNameEn") ' />
                     <ErrorMessage name="english_name" class="text-red-600" />
 
                 </div>
             <div class="mb-3">
-                    <label class="inline-block mb-2">Name in arabic</label>
+                    <label class="inline-block mb-2">{{ $t("manage.forms.nameAr") }}</label>
                     <vee-field  @input="changeUpdatedFlag(true)" name="arabic_name" type="text"
                         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                        placeholder="Enter name in arabic" />
+                        :placeholder='$t("manage.forms.enterNameAr") ' />
                     <ErrorMessage name="arabic_name" class="text-red-600" />
 
                     <!-- Password -->
                     <div class="mb-3">
-                        <label class="inline-block mb-2">Description in english</label>
+                        <label class="inline-block mb-2">{{ $t("manage.forms.desEn") }}</label>
                         <vee-field  @input="changeUpdatedFlag(true)" as="textarea" name="english_des" type="text"
                             class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                            placeholder="Enter description in arabic" />
+                            :placeholder='$t("manage.forms.enterDesEn") ' />
                         <ErrorMessage name="english_des" class="text-red-600" />
                     </div>
 
                     <!-- Password -->
                     <div class="mb-3">
-                        <label class="inline-block mb-2">Description in arabic</label>
+                        <label class="inline-block mb-2">{{ $t("manage.forms.nameAr") }}</label>
                         <vee-field  @input="changeUpdatedFlag(true)" as="textarea" name="arabic_des" type="text"
                             class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                            placeholder="Enter description in arabic" />
+                            :placeholder='$t("manage.forms.enterDesAr") ' />
                         <ErrorMessage name="arabic_des" class="text-red-600" />
                     </div>
 
@@ -56,10 +56,10 @@
           <div class=" w-52 pb-5" v-if="imgPreview"> <img :src="imgPreview" alt=""> </div>
   
           <button type="submit" :disabled="in_submission" class="py-1.5 px-3 rounded text-white bg-green-600">
-            Submit
+            {{$t("manage.forms.submit")}}
           </button>
           <button type="button" @click.prevent="showForm=false" :disabled="in_submission" class="py-1.5 px-3 mx-2 rounded text-white bg-orange-600">
-            Go back
+            {{$t("manage.forms.goback")}}
           </button>
          
         </vee-form>
