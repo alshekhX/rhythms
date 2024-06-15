@@ -131,7 +131,7 @@ export default {
         </div>
 
         <!-- ads -->
-        <ad-google></ad-google>
+        <!-- <ad-google></ad-google> -->
         <!-- Playlist -->
         <section class="container  items-center mx-auto">
           <div  id="playlist" class=" container songs-container  ">

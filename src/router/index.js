@@ -4,7 +4,7 @@ import useUserStores from '@/stores/user.js'
 
 const Home = ()=>import('@/views/Home.vue');
 const Song = ()=>import('@/views/Song.vue');
-const Manage = ()=>import('@/views/Manage.vue');
+// const Manage = ()=>import('@/views/Manage.vue');
 const About = ()=>import('@/views/About.vue');
 const Singers = ()=>import('@/views/Singers.vue');
 const Singer = ()=>import('@/views/Singer.vue');
@@ -37,11 +37,11 @@ name:"singer",
 component:Singer
 },
 
-{path:"/manage",
-name:'manage',
-meta:{requiresAuth:true},
+// {path:"/manage",
+// name:'manage',
+// meta:{requiresAuth:true},
 
-component:Manage},
+// component:Manage},
 {path:'/song/:id',
 name:"song",
 component:Song

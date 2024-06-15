@@ -23,9 +23,9 @@
               <a class="px-3 text-white" href="#"  @click.prevent="authValueToggle">{{ $t("header.log_reg") }}</a>
             </li>
             <template v-else>
-              <li>
+              <!-- <li>
               <router-link class="px-3 text-white" :to="{name:'manage'}">{{ $t("header.manage") }}</router-link>
-            </li>
+            </li> -->
             <li>
               <a class="px-3 text-white" href="#" @click.prevent="signOut()">{{ $t("header.logout") }}</a>
             </li>
@@ -61,9 +61,9 @@
               <a class="px-3 text-white" href="#"  @click.prevent="authValueToggle">{{ $t("header.log_reg") }}</a>
             </li>
             <template v-else>
-              <li>
+              <!-- <li>
               <router-link class="px-3 text-white" :to="{name:'manage'}">{{ $t("header.manage") }}</router-link>
-            </li>
+            </li> -->
             <li>
               <a class="px-3 text-white" href="#" @click.prevent="signOut()">{{ $t("header.logout") }}</a>
             </li>
