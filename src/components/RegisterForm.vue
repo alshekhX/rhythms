@@ -68,7 +68,7 @@
     <div class="mb-3 pl-6">
       <vee-field name="tos" type="checkbox" value="1" class="w-4 h-4 float-left -ml-6 mt-1 rounded" />
 
-      <label class="inline-block">{{ $t("auth.tos") }}</label>
+      <a  class="  cursor-pointer" href="https://www.privacypolicies.com/live/06810f83-ed43-43b0-a425-1e0b11fdc824" target="_blank"> <label class="inline-block">{{ $t("auth.tos") }}</label></a>
 
     </div>
     <ErrorMessage name="tos" class="text-red-600" />
@@ -107,7 +107,7 @@ export default {
       reg_in_submission: false,
       reg_alert_show: false,
       reg_alert_variant: 'bg-blue-500',
-      reg_alert_msg: 'Please wait'
+      reg_alert_msg: this.$i18n.t('auth.regWait')
 
     }
   },
@@ -126,6 +126,8 @@ createUser:"register"
     async register(values) {
       this.reg_in_submission = true,
         this.reg_alert_show = true;
+        this.reg_alert_msg= this.$i18n.t('auth.regWait')
+
 
 
       try {
@@ -134,14 +136,20 @@ createUser:"register"
       catch (e) {
         this.reg_in_submission = false,
           this.reg_alert_variant = 'bg-red-500';
-        this.reg_alert_msg = `${e}`;
+        this.reg_alert_msg =`${e}` ;
+
+        setTimeout(()=>{
+
+this.reg_alert_show=false;
+
+      },4000)
         return;
 
       }
 
       
       this.reg_alert_variant = 'bg-green-500';
-      this.reg_alert_msg = 'Your account is created successfully '
+      this.reg_alert_msg = this.$i18n.t('auth.regSuccess')
       window.location.reload();
 
     }

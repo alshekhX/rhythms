@@ -27,20 +27,22 @@
     <section v-if="tab === 'song'" class="container mx-auto mt-6">
       <div class="md:grid md:grid-cols-3 md:gap-4">
         <div class="col-span-1">
-          <app-upload :addSong="addSong"   />
+
+          <app-upload :addSong="addSong" />
 
         </div>
         <div class="col-span-2">
           <div class="bg-white rounded border border-gray-200 relative flex flex-col">
             <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
-              <span class="card-title">{{$t("manage.mySongs")}} </span>
+              <span class="card-title">{{ $t("manage.mySongs") }} </span>
               <i class="fa fa-compact-disc float-right text-green-400 text-2xl"></i>
             </div>
+            <manage-search v-on:search="handleSongsSearch" />
 
             <div class="p-6">
               <!-- Composition Items -->
-              <comp-item :singers="singers" :changeUpdatedFlag="changeUpdatedFlag" :song="song" :id="i" :removeSong="removeSong"
-                :updateSong="updateSong" v-for="(song, i) in songs" :key="song.id" />
+              <comp-item :singers="singers" :changeUpdatedFlag="changeUpdatedFlag" :song="song" :id="i"
+                :removeSong="removeSong" :updateSong="updateSong" v-for="(song, i) in songs" :key="song.id" />
             </div>
           </div>
         </div>
@@ -56,13 +58,17 @@
         <div class="col-span-1">
           <div class="bg-white rounded border border-gray-200 relative flex flex-col">
             <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
-              <span class="card-title">{{$t("manage.singers")}}</span>
+              <span class="card-title">{{ $t("manage.singers") }}</span>
               <i class="fa fa-compact-disc float-right text-green-400 text-2xl"></i>
+
             </div>
+            <manage-search v-on:search="handleSingerSearch" />
+
             <div class="p-6">
               <!-- Composition Items -->
-              <singer-edit-item :changeUpdatedFlag="changeUpdatedFlag" :singer="singer" :id="i" :removeSinger="removeSinger"
-                :updateSinger="updateSinger" :updateSingerPic="updateSingerPic" v-for="(singer, i) in singers" :key="singer.id" />
+              <singer-edit-item :changeUpdatedFlag="changeUpdatedFlag" :singer="singer" :id="i"
+                :removeSinger="removeSinger" :updateSinger="updateSinger" :updateSingerPic="updateSingerPic"
+                v-for="(singer, i) in singers" :key="singer.id" />
             </div>
           </div>
         </div>
@@ -85,6 +91,8 @@ import AppUpload from "@/components/Upload.vue";
 import CompItem from "@/components/compItem.vue";
 import SingerForm from "@/components/SingerForm.vue";
 import SingerEditItem from "@/components/SingerEditItem.vue";
+import ManageSearch from "@/components/Search.vue";
+
 
 
 
@@ -114,7 +122,72 @@ export default {
       next(leave);
     }
   },
+  computed:{
+    getSingerSearch(){
+
+return this.$i18n.locale=='en'?'english_name':'arabic_name';
+
+    }
+
+  },
   methods: {
+    async handleSongsSearch(searchTerm) {
+      if (!searchTerm.trim()) {
+
+        const songsSnapshot = await songsCollection.get();
+
+
+        songsSnapshot.forEach(this.addSong);
+        return;
+      }
+
+      const startAt = searchTerm;
+      const endAt = startAt + '\uf8ff'; // Append Unicode character with highest code point
+
+      const songsSnapshot = await songsCollection.orderBy('modefied_name')
+        .startAt(startAt)
+        .endAt(endAt)
+
+        .get();
+      this.songs = [];
+
+      songsSnapshot.forEach(this.addSong);
+
+      // Handle the search term received from the child component
+      console.log('Search term:',);
+      // Perform search actions here (e.g., API calls, filtering data)
+    }
+    ,
+
+
+    async handleSingerSearch(searchTerm) {
+      if (!searchTerm.trim()) {
+
+        const singerSnapshot = await singersCollection.get();
+
+
+singerSnapshot.forEach(this.addSinger);
+
+        return;
+      }
+
+      const startAt = searchTerm;
+      const endAt = startAt + '\uf8ff'; // Append Unicode character with highest code point
+
+      const singerSnapshot = await singersCollection.orderBy(this.getSingerSearch)
+        .startAt(startAt)
+        .endAt(endAt)
+
+        .get();
+      this.singers = [];
+
+      singerSnapshot.forEach(this.addSinger);
+
+      // Handle the search term received from the child component
+      console.log('Search term:',);
+      // Perform search actions here (e.g., API calls, filtering data)
+    },
+
     changeUpdatedFlag(value) {
 
       this.updatedFlag = value;
@@ -156,14 +229,14 @@ export default {
 
       console.log(this.songs);
     },
-    
-  removeSinger(i) {
+
+    removeSinger(i) {
       console.log(i);
       this.singers.splice(i, 1);
 
       console.log(this.singers);
     },
-    
+
 
 
     updateSinger(i, values) {
@@ -173,24 +246,24 @@ export default {
       this.singers[i].arabic_name = values.arabic_name;
       this.singers[i].english_des = values.english_des;
       this.singers[i].arabic_des = values.arabic_des;
-      
-      
+
+
     },
 
-    updateSingerPic(i,imgUrl){
+    updateSingerPic(i, imgUrl) {
       this.singers[i].imageUrl = imgUrl;
 
     }
 
   },
 
-  
 
 
-  components: { AppUpload, CompItem, SingerForm, SingerEditItem },
+
+  components: { AppUpload, CompItem, SingerForm, SingerEditItem, ManageSearch },
   async created() {
-    const songsSnapshot = await songsCollection.where('uid', '==', auth.currentUser.uid).get();
-    const singerSnapshot = await singersCollection.where('uid', '==', auth.currentUser.uid).get();
+    const songsSnapshot = await songsCollection.where("uid",'==',auth.currentUser.uid).get();
+    const singerSnapshot = await singersCollection.get();
 
 
     songsSnapshot.forEach(this.addSong);

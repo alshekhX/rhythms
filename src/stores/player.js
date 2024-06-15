@@ -42,7 +42,7 @@ requestAnimationFrame(this.progress);
         this.sound.play()
       }
     },
-    updateSeek(event){
+   async updateSeek(event){
         if(!this.sound.playing){
             return;
         }
@@ -50,20 +50,22 @@ const {x, width} = event.currentTarget.getBoundingClientRect()
 const clientX= event.clientX-x;
 const precentage= clientX/width;
 const seconds= this.sound.duration()*precentage;
- this.sound.seek(seconds);
+  this.sound.seek(seconds);
  this.sound.once("seek", this.progress);
 
        
     },
      progress(){
+      if(!this.sound.playing){
+        return;
+    }
 
         this.seek= helper.formatTime( this.sound.seek());
         this.duration= helper.formatTime( this.sound.duration()); 
         this.playerProgress= `${(this.sound.seek()/this.sound.duration())*100}%`
 
-        if(this.sound.playing()){
             requestAnimationFrame(this.progress);
-        }
+        
     }
   },
   getters:{

@@ -1,7 +1,7 @@
 <template>
     <section class="bg-red-700 mb-14   pb-8">
       <div class="header-container m-auto container">
-        <div class="  text-start font-bold sm:text-8xl  text-5xl whitespace-pre-line  mb-1 p-4 text-white">
+        <div class="  text-start font-bold   sm:text-8xl  text-5xl whitespace-pre-line  mb-1 p-4 text-white">
           {{ $t("singers.main") }}
 
         </div>
@@ -24,7 +24,28 @@
           <!-- Icon -->
 
         </div>
-        <div class=" grid lg:grid-cols-2  ">
+
+<div
+class="pb-10 pt-2 ">
+<singers-search class=" px-4 " :search_label="search_label" v-on:search="handleSingerSearch" />
+<div class="mx-4">
+
+<template  v-for="singer in searchedSingers" :key="singer.id">
+  <div v-show="searchedSingers.length!=0" class="border border-cyan-700   border-t-0 ">
+
+  <router-link :to="{ name: 'singer', params: { id: singer.id } }">
+
+
+  <div  class=" search-result cursor-pointer  px-4 py-1   bg-zinc-100 ">{{ $i18n.locale==='en'?singer.english_name :singer.arabic_name  }}   </div>
+</router-link>
+</div>
+
+
+</template>  
+</div>
+</div>
+
+        <div class="  transition grid lg:grid-cols-2  ">
           <!-- <div class="author-card">
             <img src="https://i1.sndcdn.com/artworks-sqssnjIdDJ6DnajH-0py8Qg-t500x500.jpg" alt="">
             <p class="  text-black text-opacity-75">
@@ -37,7 +58,6 @@
             </p> -->
   
           <!-- </div> -->
-         
           <singer-card v-for="singer in singers" :singer="singer"></singer-card>
         </div>
   
@@ -51,16 +71,35 @@
   <script>
   import SingerCard from "@/components/SingerCard.vue";
   import {singersCollection  } from "@/includes/firebase.js";
+  import SingersSearch from "@/components/Search.vue";
+  import upperFirst from "lodash/upperFirst";
+
+
   export default {
 
-    components:{SingerCard},
+    components:{SingerCard,SingersSearch},
     data(){
         return{
 
             singers:[],
+            searchedSingers:[],
             maxPerPage: 8,
       pendingRequest: false
         }
+    },
+    computed:{
+search_label(){
+  return this.$i18n.locale=='en'?'Search name in english':'إبحث عن الأسم باللغة العربية';
+
+
+
+},
+
+      getSingerSearch(){
+
+return this.$i18n.locale=='en'?'english_name':'arabic_name';
+
+    }
     },
      async created(){
 await this.getSingers();
@@ -69,11 +108,57 @@ window.addEventListener('scroll',this.handleScroll)
 
      },
      methods:{
+
+      addSinger(doc) {
+      const singers = {
+        ...doc.data(),
+        id: doc.id
+
+      }
+      this.singers.push(singers)
+
+    },
+      async handleSingerSearch(searchTerm) {
+        if(!searchTerm.trim()){
+          this.searchedSingers=[];
+          return;
+        }
+     
+
+      const startAt = upperFirst( searchTerm);
+      const endAt = startAt + '\uf8ff'; // Append Unicode character with highest code point
+
+      const singerSnapshot = await singersCollection.orderBy(this.getSingerSearch)
+        .startAt(startAt)
+        .endAt(endAt)
+
+        .get();
+      this.searchedSingers = [];
+
+      singerSnapshot.forEach((doc)=>{
+        const singer = {
+        ...doc.data(),
+        id: doc.id
+
+      }
+      this.searchedSingers.push(singer)
+
+
+
+
+      });
+
+      // Handle the search term received from the child component
+      console.log('Search term:',);
+      // Perform search actions here (e.g., API calls, filtering data)
+    },
+
+
         async handleScroll() {
       const { offsetHeight, scrollTop } = document.documentElement;
       const { innerHeight } = window;
 
-      const bottomOfWindow = Math.round(scrollTop) + innerHeight > offsetHeight - 1;
+      const bottomOfWindow = Math.round(scrollTop) + innerHeight > offsetHeight - 2;
 
       if (bottomOfWindow) {
         console.log('hiii');
@@ -102,12 +187,7 @@ else {
   snapshots = await singersCollection.orderBy('english_name').limit(this.maxPerPage).get();
 
 }
-snapshots.forEach((doc) => {
-  this.singers.push({
-    id: doc.id,
-    ...doc.data()
-  })
-})
+snapshots.forEach(this.addSinger)
 this.pendingRequest = false;
 
 }
@@ -142,6 +222,15 @@ this.pendingRequest = false;
   
   }
   
+.search-result:hover{
+  background-color:      rgb(14 116 144 );
+
+  opacity: 80%;
+  color: #ffff
+
+
+}
+
   .author-card p {
     text-align: justify;
   

@@ -3,8 +3,8 @@
         <header id="header" class="bg-gray-700">
       <nav class="container mx-auto flex justify-start items-center py-5 px-4 ">
         <!-- App Name -->
-        <router-link exact-active-class="no-ative" class="text-white font-bold uppercase text-2xl mr-4" :to="{name:'home'}"
-          >RS</router-link
+        <router-link exact-active-class="no-ative" class="  text-white font-bold uppercase text-2xl mr-4" :to="{name:'home'}"
+          > <div class="logo">RS</div></router-link
         >
 
         <ul class="  mobile-nav  flex-col " ref="hamMenu" :class="{active:openNav}" >
@@ -85,6 +85,7 @@
 import { mapStores,mapActions,mapState } from "pinia";
 import useModalStore from "../stores/modal";
 import useUserStore from "../stores/user";
+import { setLocale } from '@vee-validate/i18n';
 
 export default{
   data(){
@@ -98,7 +99,7 @@ return{
     ...mapState(useUserStore,['lang']),
     ...mapStores(useModalStore,useUserStore),
     currentLocale(){
-      return this.$i18n.locale==='en'?'English':'العربية'
+      return this.$i18n.locale==='en'?'العربية':'English'
 
     }
  
@@ -124,6 +125,11 @@ beforeDestroy() {
   changeLocale(){
 
     this.$i18n.locale= this.$i18n.locale==='en'?'ar':'en'
+    let fieldLocale= this.$i18n.locale;
+    setLocale(fieldLocale);
+    localStorage.setItem('userLocale', fieldLocale);
+
+
   // this.lang=this.$i18n.locale;
   },
  async signOut() {
@@ -149,6 +155,13 @@ this.$router.push({name:'home'});
 
 .ham-button{
 display: none;
+}
+
+
+.logo{
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
 }
 
 

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class=" lg:mt-1 md:mt-4 mt-8">
    <!-- Player -->
    <div class="fixed bottom-0 left-0 bg-white px-4 py-4 w-full">
       <!-- Track Info -->

@@ -46,6 +46,7 @@ component:Manage},
 name:"song",
 component:Song
 },
+
 {path:"/manage",
 path:'/:catchAll(.*)*',
 redirect:{name:'home'}},
@@ -55,7 +56,14 @@ redirect:{name:'home'}},
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior(to, from, savedPosition) {
+    // always scroll to top
+    if(to.name=='song')
+    return { top: 0 }
+  },
+  
   routes: routes ,
+  
   linkExactActiveClass:'text-yellow-500'
 })
 

@@ -1,7 +1,7 @@
 {
    "home":{
   
-      "description":"Listen to high quality sudanese music. \n from the golden era",
+      "description":"Rediscover the unforgettable melodies of\n classic Sudanese music",
       "songs":"Songs"
    },
    "singers":{
@@ -12,7 +12,7 @@
    },
    "about":{
       "main":"About \nThe Site",
-      "first_description":"History, religion, culture, ways of life, Arabic melodies, African rhythms. The rich mix that produced soul-grabbing rhythms and melodies in Sudan. "
+      "first_description":"History, religion, culture, ways of life, Arabic melodies, African rhythms. The rich mix that produced soul-grabbing music in Sudan. "
       ,
       "second_description":"Rhythms of Sudan provides a window into sudan rich musical heritage. It explores the different styles that shaped its sound, from rhythms inspired by traditional ways of life like 'tm tm' and 'aljarari' to incorporating modern Western styles; know more about the poets, singers, and producers who shaped Sudanese music."
    },
@@ -26,13 +26,22 @@
 "logout":"Logout"
 
    },
+
+   
+   "singer":{
+      "goToSongs":"Navigate to songs"
+
+     },
    "song":{
 
       "songs":"Songs",
       "comment_count":"no comments | (1) comment | ({count}) comments",
       "addComment":"Add your comment here",
       "pleaseWait":"Please Wait! Your Comment is being submitted",
-      "commentAdded":"Comment Added!"
+      "commentAdded":"Comment Added!",
+      "submit":"Submit",
+      "latest":"latest",
+      "oldest":"oldest"
 
 
    },
@@ -54,7 +63,15 @@
 "enterAge":"Enter your age",
 
 "tos":"Accept terms of service",
-"submit":"Submit"
+"submit":"Submit",
+"regWait":"Please Wait",
+"regWrong":"Something Went Wrong, make sure you have an active connection and try again",
+"regSuccess":"Your account is created successfully",
+"loginWait":"Please wait,We are logging you in",
+"loginWrong":"Invalid login details",
+"loginSuccess":"You have logged in successfully "
+
+
 
    },
 
@@ -73,10 +90,10 @@
 "add":"Add",
 "forms":{
 "title":"title",
-"genre":"Genre",
+"sourse":"sourse",
 "singer":"Singer",
 "enterSongTitle":"Enter Song Title",
-"enterGenre":"Enter Genre",
+"enterSource":"Enter Source",
 "enterSinger":"Enter Singer",
 
    "submit":"Submit",
@@ -90,8 +107,24 @@
 "enterNameAr":"Enter name in arabic",
 "enterNameEn":"Enter name in english",
 "enterDesAr":"Enter description in arabic",
-"enterDesEn":"Enter description in english"
+"enterDesEn":"Enter description in english",
 
+
+"songEditWait":"Please wait! Updating song info.",
+"songEditWrong":"Something went wrong! Please try again.",
+"songEditSuccess":"Success"
+   
+
+,
+
+"singerEditWait":"Please wait! Updating singer info.",
+"singerEditWrong":"Something went wrong! Please try again.",
+"singerEditSuccess":"Success",
+
+"singerAddWait":"Please wait...",
+"singerAddWrong":"Something went wrong!, Please try again.",
+"singerAddSuccess":"Success"
+   
 
 
 

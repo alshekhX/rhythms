@@ -1,5 +1,5 @@
 <template >
-  <section class="bg-red-700   -mb-11  overflow-y-hidden  pb-8">
+  <section class="   bg-red-700  -mb-11  overflow-y-hidden  pb-8">
     <div class="header-container   mx-auto container">
       <div class="  whitespace-pre-line text-start font-bold sm:text-8xl text-6xl  xl:mb-14 p-4 text-white">
         {{ $t("about.main") }}
@@ -31,7 +31,9 @@
 
 
     </div>
-    <div class="mt-32 mb-16 container mx-auto grid  gap-y-10  p-4 grid-cols-2 lg:grid-cols-4 ">
+    
+
+    <div class="mt-32 mb-28 container mx-auto grid  gap-y-10  p-4 grid-cols-2 lg:grid-cols-4 ">
         <img class="  h-56  object-contain  w-56"
           src="https://www5.0zz0.com/2017/06/26/18/203987009.jpg"
           alt="" srcset="">
@@ -47,6 +49,27 @@
           
           
       </div>
+      <div class=" mb-5 container mx-auto  flex justify-center" >
+        
+    <form action="https://www.paypal.com/donate" method="post" target="_top">
+<input type="hidden" name="hosted_button_id" value="SCPMRD3B7MJWL" />
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+<img alt="" border="0" src="https://www.paypal.com/en_AE/i/scr/pixel.gif" width="1" height="1" />
+</form>
+
+
+
+      </div>
+      
+      <div class=" mb-20 container mx-auto text-xl   text-white  flex justify-center"><a href="mailto:theflowzoneee@gmail.com" class="gmail-icon-container">
+  <i class="fa fa-envelope"></i>
+</a></div>
+      <div class=" mb-10 container mx-auto text-xl   text-white  flex justify-center">
+       <h2>Copyright © 2024 The Flow Zone</h2> 
+
+</div>
+
+    
 
 
 

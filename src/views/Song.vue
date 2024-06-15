@@ -3,9 +3,18 @@
         <div>
 
             <!-- Music Header -->
-            <section class="w-full mb-8 py-14 text-center text-white relative">
-                <div class="absolute inset-0 w-full h-full box-border bg-contain bg-red-700 music-bg"></div>
+            <section class="w-full mb-8 pb-14 pt-6 text-center overflow-hidden text-white relative">
+                
+                <div class="absolute  inset-0 w-full z-10 h-full box-border bg-contain opacity-90 bg-red-700 music-bg"></div>
+                <button @click="$router.back()" class=" mx-auto container px-8 pb-8 flex justify-self-start btn btn-primary">
+    <i class=" z-50 text-2xl md:text-3xl fas fa-arrow-left text-white "></i> 
+  </button>
+                <div class="mx-auto container" > <img  class="     absolute  inset-0    left-2/4 overflow-hidden top-0 bottom-0        h-full    -z-40    box-border     "
+          :src="song.imageUrl?song.imageUrl:tempImg"
+          alt=""></div>
+          
                 <div class="container mx-auto px-4 flex items-center">
+                    
                     <!-- Play/Pause Button -->
                     <button type="button" @click.prevent="playSong()"
                         class="z-50 h-20 w-20 flex-none  lg:w-24 lg:h-24 border-white   lg:text-3xl text-xl bg-red-700 text-white border-8 border-red rounded-full focus:outline-none">
@@ -13,12 +22,14 @@
                     </button>
                     <div class="z-50 text-left ml-8">
                         <!-- Song Info -->
-                        <div class="text-md lg:text-2xl font-bold">{{ song.modefied_name }}</div>
-                        <div>{{ song.genre }}</div>
+                        <div class="text-md pb- lg:text-2xl font-bold">{{ song.modefied_name }}</div>
 
 
-                       <router-link :to="{ name: 'singer', params: { id: song.singerID } }"   ><div><span class="  font-medium ">{{ $t('artist') }}: </span> {{ getSingerName }}</div>
-                       </router-link> 
+                        <router-link  :to="{ name: 'singer', params: { id: song.singerID } }">
+                            <div class="lg:text-xl  text-md pt-2"><span class="   font-medium ">{{ $t('artist') }}: </span> <span class=" font-semibold underline"> {{ getSingerName }}</span></div>
+                        </router-link>
+                        <div v-show="song.source" class="  pt-4 inset-5 text-xs lg:text-lg font-bold"><a  :href="song.source">Song Source</a></div>
+
                     </div>
                 </div>
             </section>
@@ -27,7 +38,10 @@
                 <div class="bg-white rounded border border-gray-200 relative flex flex-col">
                     <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
                         <!-- Comment Count -->
-                        <span class="card-title">{{ $tc("song.comment_count",song.comments_count, { count: song.comments_count }) }}</span>
+                        <span class="card-title">{{ $tc("song.comment_count", song.comments_count, {
+                            count:
+                                song.comments_count
+                        }) }}</span>
                     </div>
                     <div class="p-6">
                         <div :class="comment_alert_variant" class="text-white text-center font-bold p-4 mb-4"
@@ -37,32 +51,32 @@
                         <vee-form v-if="userLoggedIn" :validation-schema="schema" bails="false" @submit="addComment">
                             <vee-field as="textarea" name="comment"
                                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded mb-4"
-                                placeholder="Your comment here...">
+                                :placeholder="$t('song.addComment')">
 
                             </vee-field>
                             <ErrorMessage name="comment" class="text-red-600" />
 
                             <button :disabled="comment_in_submission" type="submit"
                                 class="py-1.5 px-3 rounded text-white bg-green-600 block">
-                                Submit
+                                {{ $t('song.submit') }}
                             </button>
                         </vee-form>
                         <!-- Sort Comments -->
                         <select v-model="sort"
                             class="block mt-4 py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded">
-                            <option value="1">Latest</option>
-                            <option value="2">Oldest</option>
+                            <option value="1"> {{ $t('song.latest') }}</option>
+                            <option value="2"> {{ $t('song.oldest') }}</option>
                         </select>
                     </div>
                 </div>
             </section>
             <!-- Comments -->
-            <ul class="container mx-auto" id="comments">
+            <ul class="container mx-auto" >
                 <li class="p-6 bg-gray-50 border border-gray-200" v-for="comment in sortedComments" :key="comment.id">
                     <!-- Comment Author -->
                     <div class="mb-5">
-                        <div class="font-bold">{{ comment.name }}</div>
-                        <time>{{ comment.datePosted }}</time>
+                        <div class="font-bold text-black opacity-90">{{ comment.name }}</div>
+                        <div class="  text-sm  text-black opacity-75">{{ getCommentDate(comment.datePosted) }}</div>
                     </div>
 
                     <p>
@@ -83,8 +97,14 @@ import usePlayerStore from "@/stores/player.js";
 import { onBeforeRouteLeave } from "vue-router";
 
 
+
+
 export default {
     name: "Song",
+    created() {
+
+    },
+
     data() {
         return {
             song: {},
@@ -124,12 +144,14 @@ export default {
         })
 
     },
-    computed: {
-        
-    getSingerName(){
 
-return this.$i18n.locale==='en'?this.song.singer_name :this.song.singer_arabic_name ;
-},
+    computed: {
+
+
+        getSingerName() {
+
+            return this.$i18n.locale === 'en' ? this.song.singer_name : this.song.singer_arabic_name;
+        },
 
         ...mapState(usePlayerStore, ['playing', 'current_song']),
         ...mapState(useUserStore, ["userLoggedIn"]),
@@ -146,6 +168,12 @@ return this.$i18n.locale==='en'?this.song.singer_name :this.song.singer_arabic_n
 
     methods: {
         ...mapActions(usePlayerStore, ['newSong', 'toggleSong']),
+        getCommentDate(date) {
+            console.log(date);
+            return this.$i18n.d(new Date(date), 'long')
+
+
+        },
 
         toggole() {
 
@@ -172,7 +200,7 @@ return this.$i18n.locale==='en'?this.song.singer_name :this.song.singer_arabic_n
         },
         ...mapActions(usePlayerStore, ['newSong']),
         async addComment(values, context) {
-            this.comment_alert_message = "Please Wait! Your Comment is being submitted";
+            this.comment_alert_message = this.$i18n.t('song.pleaseWait');
             this.comment_show_alert = true;
             this.comment_alert_variant = 'bg-blue-500';
             this.comment_in_submission = true;
@@ -190,11 +218,17 @@ return this.$i18n.locale==='en'?this.song.singer_name :this.song.singer_arabic_n
             await songsCollection.doc(this.$route.params.id).update({
                 comments_count: this.song.comments_count
             });
-            this.comment_alert_message = "Comment Added!";
+            this.comment_alert_message = this.$i18n.t('song.commentAdded');
             this.comment_alert_variant = 'bg-green-500';
             this.comment_in_submission = false;
             context.resetForm();
             this.getComments();
+            setTimeout(() => {
+
+                this.comment_show_alert = false;
+
+            }, 3000)
+
 
         },
         async getComments() {

@@ -14,7 +14,7 @@
 
                 <div class="mb-3">
                     <label class="inline-block mb-2">{{ $t("manage.forms.nameEn") }}</label>
-                    <vee-field name="english_name" type="text"
+                    <vee-field name="english_name" label="name in english" type="text"
                         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                         :placeholder=' $t("manage.forms.enterNameEn") ' />
                     <ErrorMessage name="english_name" class="text-red-600"/>
@@ -23,7 +23,7 @@
                 <!-- Password -->
                 <div class="mb-3">
                     <label class="inline-block mb-2">{{ $t("manage.forms.nameAr") }}</label>
-                    <vee-field name="arabic_name" type="text"
+                    <vee-field name="arabic_name"  type="text"
                         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                         :placeholder=' $t("manage.forms.enterNameAr") ' />
                     <ErrorMessage name="arabic_name" class="text-red-600"/>
@@ -40,7 +40,7 @@
                     <!-- Password -->
                     <div class="mb-3">
                         <label class="inline-block mb-2">{{ $t("manage.forms.desAr") }}</label>
-                        <vee-field as="textarea" name="arabic_des" type="text"
+                        <vee-field as="textarea" name="arabic_des"  type="text"
                             class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                             :placeholder=' $t("manage.forms.enterDesAr") ' />
                         <ErrorMessage name="arabic_des" class="text-red-600"/>
@@ -85,10 +85,10 @@ export default {
 
             in_submission: false,
       show_alert: false,
-      alert_variant: 'bg-blue-500',
-      alert_message: 'Please wait! Updating song info. ',
+      alert_variant:  'bg-blue-500',
+      alert_message:  this.$i18n.t("manage.forms.singerAddWait"),
 
-            singerSchema:{
+                singerSchema:{
                 english_name:'required',
                 arabic_name:'required',
                 english_des:'required',
@@ -106,7 +106,7 @@ async addUser(values){
     this.in_submission = true;
       this.show_alert = true;
       this.alert_variant = 'bg-blue-500';
-      this.alert_message = 'Please wait! Updating song info.';
+      this.alert_message = this.$i18n.t("manage.forms.singerAddWait")
       let singerSnap = null;
       values.english_name= upperFirst(values.english_name);
 
@@ -119,13 +119,13 @@ async addUser(values){
       this.show_alert = true;
 
         this.alert_variant = 'bg-red-500';
-        this.alert_message = 'Something went wrong! Please try again.'
+        this.alert_message = this.$i18n.t("manage.forms.singerAddWrong"),
         console.log(e);
       
     }
     this.addSingerToList(singerSnap);
     this.alert_variant = 'bg-green-500';
-      this.alert_message = 'Success.';
+      this.alert_message = this.$i18n.t("manage.forms.singerAddSuccess")
       this.in_submission = false;
       setTimeout(()=>{
 

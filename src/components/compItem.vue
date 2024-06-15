@@ -18,19 +18,19 @@
       <vee-form :initial-values="song" :validation-schema="schema" @submit="edit">
         <div class="mb-3">
           <label class="inline-block mb-2">{{$t("manage.forms.title")}}</label>
-          <vee-field @input="changeUpdatedFlag(true)" type="text" name="modefied_name"
+          <vee-field @input="changeUpdatedFlag(true)" type="text" name="modefied_name" 
             class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
             :placeholder='$t("manage.forms.enterSongTitle")' />
-          <ErrorMessage name="modefied_name" class="text-red-600" />
+          <ErrorMessage name="modefied_name"  class="text-red-600" />
 
 
         </div>
         <div class="mb-3">
-          <label class="inline-block mb-2">{{$t("manage.forms.genre")}}</label>
-          <vee-field @input="changeUpdatedFlag(true)" type="text" name="genre"
+          <label class="inline-block mb-2">{{$t("manage.forms.source")}}</label>
+          <vee-field @input="changeUpdatedFlag(true)" type="text" name="source"
             class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-            :placeholder='$t("manage.forms.enterGenre")' />
-          <ErrorMessage name="genre" class="text-red-600" />
+            :placeholder='$t("manage.forms.enterSource")' />
+          <ErrorMessage name="source" class="text-red-600" />
 
 
         </div>
@@ -39,7 +39,7 @@
           <label class="inline-block mb-2">{{$t("manage.forms.singer")}}</label>
           <vee-field as="select" name="singerID"
             class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-            :placeholder='$t("manage.forms.enterGenre")' >
+            :placeholder='$t("manage.forms.enterSource")' >
             <option v-for="singer in singers" :value="singer.id">{{ singer.english_name }}</option>
 
           </vee-field>
@@ -78,9 +78,7 @@ export default {
       imgPreview: null,
       schema: {
         modefied_name: 'required',
-        singerID: 'required',
 
-        genre: 'min:3|max:30|alpha_spaces'
       },
       in_submission: false,
       show_alert: false,
@@ -97,7 +95,18 @@ export default {
 
 
       const storageRef = storage.ref();
-      const songsRef = storageRef.child(`/images/${file.name}`);
+      const songsRef = storageRef.child(`/images/${this.song.original_name}`);
+try{
+
+
+await songsRef.delete();
+;
+}
+catch(e){
+
+
+}
+
       const task = songsRef.put(file);
       task.on("state_change", (snapshot) => {
 
@@ -116,8 +125,8 @@ export default {
           this.imgPreview = imageUrl;
 
 
-          await songsCollection.doc(this.song.id).update({ imageUrl });
-
+         const shit= await songsCollection.doc(this.song.id).update({ imageUrl });
+console.log(shit);
 
 
         }
@@ -134,7 +143,7 @@ export default {
       this.in_submission = true;
       this.show_alert = true;
       this.alert_variant = 'bg-blue-500';
-      this.alert_message = 'Please wait! Updating song info.';
+      this.alert_message = this.$i18n.t("manage.forms.songEditWait");
 
 
       try {
@@ -160,14 +169,26 @@ export default {
         this.show_alert = true;
 
         this.alert_variant = 'bg-red-500';
-        this.alert_message = 'Something went wrong! Please try again.'
+        this.alert_message =this.$i18n.t("manage.forms.songEditWrong");
+        setTimeout(()=>{
+        this.show_alert = false;
+
+
+
+      },4000)
         return;
 
       }
       this.alert_variant = 'bg-green-500';
-      this.alert_message = 'Success.';
+      this.alert_message = this.$i18n.t("manage.forms.songEditSuccess");;
       this.in_submission = false;
       console.log(this.id);
+      setTimeout(()=>{
+        this.show_alert = false;
+
+
+
+      },3000)
       this.changeUpdatedFlag(false)
       this.updateSong(this.id, values)
 
@@ -177,8 +198,14 @@ export default {
       console.log('fucl')
       const storageRef = storage.ref();
       const songRef = storageRef.child(`songs/${this.song.original_name}`);
-
+try{
       await songRef.delete();
+}
+
+catch(e){
+
+  console.log('no file')
+}
       await songsCollection.doc(this.song.id).delete();
       this.removeSong(this.id);
 

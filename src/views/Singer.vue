@@ -1,17 +1,25 @@
 <template >
   <section class="bg-red-700  mb-12   overflow-hidden py-4">
+    <button @click="$router.back()" class=" mx-auto container px-8 pt-2 pb-4  md:pb-8 flex justify-self-start btn btn-primary">
+    <i class=" text-2xl md:text-3xl fas fa-arrow-left text-white "></i> 
+  </button>
     <div class="header-container mx-auto container">
       <div class="flex  flex-col justify-normal ">
 
 
-        <div class="   underline   text-start font-bold sm:text-8xl text-3xl md:text-5xl  xl:m-0 xl:pt-8 mx-auto p-4 mb-4 text-white">
+        <div class="   underline   lg:text-start text-center font-bold sm:text-5xl text-3xl md:text-5xl  xl:m-0 xl:pt-8 mx-auto p-4 mb-4 text-white">
           {{getSingerName}} </div>
 
 
       </div>
-      <img :src="singer.imageUrl" class="mb-4 mx-auto xl:m-0 xl:pt-8 " alt="">
+      <img :src="singer.imageUrl" class="mb-4   mx-auto xl:m-0 xl:pt-8 " alt="">
 
-      <p class=" text-md font-semi sm:text-2xl  leading-relaxed  xl:m-0 lg:pb-8 text-justify lg:p-4 mx-auto mb-4 text-white w-3/4">
+      <div v-show="singer.arabic_name" v-on:click="scrollToTarget"  class=" text-yellow-400 text-lg    cursor-pointer md:hidden  text-center font-bold  mx-auto p-4  text-white">
+         {{ $t('singer.goToSongs') }}  <i class="fas fa-arrow-down
+
+pen_spark
+"></i> </div>
+      <p  class=" text-md font-semi  sm:text-2xl  whitespace-pre-line  sm:leading-normal  xl:m-0 lg:pb-8  lg:p-4 mx-auto mb-4 text-white w-3/4"   :class="{' text-justify  ' :$i18n.locale=='ar','  text-justify ':$i18n.locale=='en'}" >
        {{getSingerDes}}
       </p>
 
@@ -25,7 +33,7 @@
       <div class="px-6 pt-6 pb-5 font-bold border-t border-r mb-4  mx-4 border-8 border-gray-700" 
         
         >
-          <span class="card-title text-3xl">{{$t("song.songs")}}</span>
+          <span id="singer-song" class="card-title text-3xl">{{$t("song.songs")}}</span>
           <!-- Icon -->
 
         </div>
@@ -84,6 +92,10 @@ return this.$i18n.locale==='en'?this.singer.english_des :this.singer.arabic_des 
 
   },
   methods: {
+    scrollToTarget() {
+      const targetElement = document.getElementById('singer-song');
+      targetElement.scrollIntoView({ behavior: 'smooth' }); // Smooth scrolling
+    },
     ...mapActions(useSingersStore, ['getSingerSongs', 'getSingerById'])
   }
 

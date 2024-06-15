@@ -1,10 +1,12 @@
-<template>
-  <div class=" songs-center">
-    <div class="flex flex-col  px-3    item-width    my-4 mr-5  cursor-pointer transition duration-300 hover:bg-red-50">
+<template >
+  <div v-show="song.imageUrl" class=" songs-center">
+    <div class="flex flex-col  px-5    item-width    my-4 mr-5  cursor-pointer transition duration-300 hover:bg-red-50">
       <div class="">
-        <img  class=" h-48  w-full "
+        <router-link :to="{ name: 'song', params: { id: song.id } }" class="font-bold  text-gray-600">
+        <img  class=" h-48 w-96     bg-contain "
           :src="song.imageUrl?song.imageUrl:tempImg"
           alt="">
+          </router-link>
       </div>
       <div class=" flex flex-row   ">
 

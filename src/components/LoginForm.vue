@@ -51,7 +51,7 @@ password: "required|min:4|max:10|excluded:password",
   log_in_submission:false,
   log_alert_show:false,
   log_alert_variant:'bg-blue-500',
-  log_alert_msg :'Please wait'
+  log_alert_msg :'Please wait,We are logging you in'
 
 }
 },
@@ -62,7 +62,7 @@ async login(values) {
  this. log_in_submission=true,
   this.log_alert_show=true;
   this.log_alert_variant='bg-blue-500';
-  this.log_alert_msg ='Please Wait! We are logging you in '
+  this.log_alert_msg =this.$i18n.t("auth.loginWait");
 
   try{
 
@@ -72,14 +72,19 @@ async login(values) {
   } catch(e){
  this. log_in_submission=false;
  this.log_alert_variant='bg-red-500';
-  this.log_alert_msg ='Invalid login details '
+  this.log_alert_msg =this.$i18n.t("auth.loginWrong");
+  setTimeout(()=>{
+
+this.log_alert_show=false;
+
+      },4000)
   return;
 
 
      
   }
   this.log_alert_variant='bg-green-500';
-  this.log_alert_msg ='You have logged in successfully ';
+  this.log_alert_msg =this.$i18n.t("auth.loginSuccess");
   window.location.reload();
 
 

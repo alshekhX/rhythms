@@ -1,12 +1,15 @@
 <script >
 import { songsCollection } from "@/includes/firebase";
 import AppSongItem from "@/components/SongItem.vue";
+import AdGoogle from "@/components/AdGoogle.vue";
+
 
 
 
 export default {
   components: {
-    AppSongItem
+    AppSongItem,
+    AdGoogle
   },
   data() {
     return {
@@ -126,10 +129,15 @@ export default {
           <!-- Icon -->
 
         </div>
+
+        <!-- ads -->
+        <ad-google></ad-google>
         <!-- Playlist -->
         <section class="container  items-center mx-auto">
           <div  id="playlist" class=" container songs-container  ">
-            <app-song-item v-for="song in songs" :song="song" :key="song.id">
+
+            
+            <app-song-item v-for="song in songs" :song="song" :key="song.id"  >
 
             </app-song-item>
 

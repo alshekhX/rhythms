@@ -2,7 +2,7 @@
     <div class="border border-gray-200 p-3 mb-4 rounded">
       <div v-if="!showForm">
     <img :src='singer.imageUrl? singer.imageUrl:"https://cdn-icons-png.flaticon.com/512/2919/2919906.png" ' class=" w-32 h-32" alt="https://cdn-icons-png.flaticon.com/512/2919/2919906.png">    
-        <h4 class="inline-block text-md font-bold">{{ singer.english_name }}</h4>
+        <h4 class="inline-block text-md font-bold">{{ getSingerName }}</h4>
         <button @click.prevent="deleteSinger" class="ml-1 py-1 px-2 text-sm rounded text-white bg-red-600 float-right">
           <i class="fa fa-times" ></i>
         </button>
@@ -18,7 +18,7 @@
         <vee-form :initial-values="singer" :validation-schema="schema" @submit="editSinger">
             <div class="mb-3">
                     <label class="inline-block mb-2">{{ $t("manage.forms.nameEn") }}</label>
-                    <vee-field  @input="changeUpdatedFlag(true)" name="english_name" type="text"
+                    <vee-field  @input="changeUpdatedFlag(true)" name="english_name"  type="text"
                         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                         :placeholder='$t("manage.forms.enterNameEn") ' />
                     <ErrorMessage name="english_name" class="text-red-600" />
@@ -34,7 +34,7 @@
                     <!-- Password -->
                     <div class="mb-3">
                         <label class="inline-block mb-2">{{ $t("manage.forms.desEn") }}</label>
-                        <vee-field  @input="changeUpdatedFlag(true)" as="textarea" name="english_des" type="text"
+                        <vee-field  @input="changeUpdatedFlag(true)" as="textarea" name="english_des"  type="text"
                             class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                             :placeholder='$t("manage.forms.enterDesEn") ' />
                         <ErrorMessage name="english_des" class="text-red-600" />
@@ -87,12 +87,19 @@
         in_submission: false,
         show_alert: false,
         alert_variant: 'bg-blue-500',
-        alert_message: 'Please wait! Updating Singer info. '
+        alert_message: this.$i18n.t("manage.forms.singerEditWait")
   
       }
     },
+computed:{
+  
+  getSingerName(){
+
+return this.$i18n.locale==='en'?this.singer.english_name :this.singer.arabic_name ;
+},
+},
+
     created(){
-        console.log('kossmk')
 console.log(`images/singers/${this.singer.image_location}`)
     },
     methods: {
@@ -137,7 +144,7 @@ console.log(`images/singers/${this.singer.image_location}`)
         this.in_submission = true;
         this.show_alert = true;
         this.alert_variant = 'bg-blue-500';
-        this.alert_message = 'Please wait! Updating Singer info.';
+        this.alert_message = this.$i18n.t("manage.forms.singerEditWait");
   
   
         try {
@@ -149,15 +156,24 @@ console.log(`images/singers/${this.singer.image_location}`)
         this.show_alert = true;
   
           this.alert_variant = 'bg-red-500';
-          this.alert_message = 'Something went wrong! Please try again.'
+          this.alert_message = this.$i18n.t("manage.forms.singerEditWrong")
+          setTimeout(()=>{
+
+this.show_alert=false;
+
+      },3000)
           return;
   
         }
         this.alert_variant = 'bg-green-500';
-        this.alert_message = 'Success.';
+        this.alert_message = this.$i18n.t("manage.forms.singerEditSuccess");
         this.in_submission = false;
-        console.log(this.id);
-        this.changeUpdatedFlag(false)
+        setTimeout(()=>{
+
+this.show_alert=false;
+
+      },3000)
+              this.changeUpdatedFlag(false)
         this.updateSinger(this.id,values)
   
       },
@@ -165,7 +181,6 @@ console.log(`images/singers/${this.singer.image_location}`)
       
   
       async deleteSinger(){
-        console.log('fucl');
         if(this.singer.image_location){
         const storageRef= storage.ref();
         const SingerRef= storageRef.child(`images/singers/${this.singer.image_location}`);
