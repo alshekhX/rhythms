@@ -3,6 +3,8 @@ import 'firebase/firestore';
 import  "firebase/auth";
 import  "firebase/firestore";
 import  "firebase/storage";
+import "firebase/analytics";
+
 
 
 // import { getAnalytics } from "firebase/analytics";
@@ -34,6 +36,9 @@ const firebaseTestingConfig = {
  
 // Initialize Firebase
  firebase.initializeApp(firebaseConfig);
+ firebase.analytics();
+
+
 
  
 // Initialize testing Firebase
