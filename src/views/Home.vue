@@ -7,6 +7,7 @@ import AdGoogle from "@/components/AdGoogle.vue";
 
 
 export default {
+  name:'home',
   components: {
     AppSongItem,
     AdGoogle
