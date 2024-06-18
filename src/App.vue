@@ -34,7 +34,9 @@ export default{
  </app-header>
 
  <router-view  v-slot="{ Component}">
-  <component :is="Component"></component>
+  <keep-alive include="home,singers">
+  <component :is="Component" ></component>
+</keep-alive>
 
  </router-view>
  

@@ -7,6 +7,7 @@ import AdGoogle from "@/components/AdGoogle.vue";
 
 
 export default {
+  name:'home',
   components: {
     AppSongItem,
     AdGoogle
@@ -153,6 +154,7 @@ export default {
     </section>
   </main>
 </template>
+
 
 
 <style  scoped>

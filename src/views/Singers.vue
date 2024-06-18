@@ -78,6 +78,7 @@ class="pb-10 pt-2 ">
   export default {
 
     components:{SingerCard,SingersSearch},
+    name:'singers',
     data(){
         return{
 

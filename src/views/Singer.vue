@@ -62,6 +62,7 @@ import AppSongItem from "@/components/SongItem.vue";
 
 export default {
   components: { AppSongItem },
+  name:'singer',
   data() {
     return {
 
