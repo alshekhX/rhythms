@@ -15,7 +15,11 @@
         <div class="flex flex-col px-1 py-2">
           <router-link :to="{ name: 'song', params: { id: song.id } }" class="font-bold  text-gray-600">{{ song.modefied_name
           }}</router-link>
-          <div class="text-gray-500 text-sm font-bold"><span class="text-sm">Artist: </span>{{ getSingerName }}</div>
+          
+    <router-link class=" " :to="{ name: 'singer', params: { id: song.singerID } }">          <div class="text-gray-500 text-sm  font-bold"><span class="text-sm">Artist: </span>{{ getSingerName }}</div>
+</router-link>
+
+
         </div>
       </div>
 

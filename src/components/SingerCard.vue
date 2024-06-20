@@ -1,7 +1,9 @@
 <template>
   <div class="author-card ">
+    <router-link class="" :to="{ name: 'singer', params: { id: singer.id } }"> 
     <img :src='singer.imageUrl ? singer.imageUrl : "https://cdn-icons-png.flaticon.com/512/2919/2919906.png"'
-      class=" w-32 h-32" alt="https://cdn-icons-png.flaticon.com/512/2919/2919906.png">
+      class=" w-32 h-32" alt="https://cdn-icons-png.flaticon.com/512/2919/2919906.png"></router-link>
+
     <router-link class=" text-3xl font-bold  lg:text-start text-center  underline  opacity-90" :to="{ name: 'singer', params: { id: singer.id } }"> {{
       getSingerName }}</router-link>
 
