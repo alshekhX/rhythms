@@ -1,4 +1,6 @@
 <template>
+    <div v-show="singer.imageUrl" class=" songs-center">
+
   <div class="author-card ">
     <router-link class="" :to="{ name: 'singer', params: { id: singer.id } }"> 
     <img :src='singer.imageUrl ? singer.imageUrl : "https://cdn-icons-png.flaticon.com/512/2919/2919906.png"'
@@ -13,9 +15,11 @@
       <router-link class=" text-lg font-bold  underline text-blue-700  opacity-90" :to="{ name: 'singer', params: { id: singer.id } }"> Read More</router-link>
 
 
+      
     </p>
 
   </div>
+</div>
 </template>
 
 <script>
