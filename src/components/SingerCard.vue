@@ -1,5 +1,5 @@
 <template>
-    <div v-show="singer.imageUrl" class=" songs-center">
+    <div v-show="singer.imageUrl">
 
   <div class="author-card ">
     <router-link class="" :to="{ name: 'singer', params: { id: singer.id } }"> 
