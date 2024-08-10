@@ -4,31 +4,47 @@
 
             <!-- Music Header -->
             <section class="w-full mb-8 pb-14 pt-6 text-center overflow-hidden text-white relative">
-                
-                <div class="absolute  inset-0 w-full z-10 h-full box-border bg-contain opacity-90 bg-red-700 music-bg"></div>
-                <button @click="$router.back()" class=" mx-auto container px-8 pb-8 flex justify-self-start btn btn-primary">
-    <i class=" z-50 text-2xl md:text-3xl fas fa-arrow-left text-white "></i> 
-  </button>
-                <div class="mx-auto container" > <img  class="     absolute  inset-0    left-2/4 overflow-hidden top-0 bottom-0        h-full    -z-40    box-border     "
-          :src="song.imageUrl?song.imageUrl:tempImg"
-          alt=""></div>
-          
+
+                <div class="absolute  inset-0 w-full z-10 h-full box-border bg-contain opacity-90 bg-red-700 music-bg">
+                </div>
+                <div class=" flex container  mx-auto flex-row  justify-start ">
+                    <button @click="$router.back()"
+                        class=" mx-auto container px-8 pb-8 flex justify-self-start btn btn-primary">
+                        <i class=" z-50 text-2xl md:text-3xl fas fa-arrow-left text-white "></i>
+                    </button>
+                    <button @click="shareContent()"
+                        class=" mx-auto   justify-end  lg:hidden  px-8 pb-8 flex  justify-items-end btn btn-primary">
+                        
+                        <i class=" z-50 text-xl md:text-2xl     fa fa-solid fa-retweet text-white " aria-label="share button" title="share"></i>
+                    </button>
+                </div>
+
+
+
+                <div class="mx-auto container"> <img
+                        class="     absolute  inset-0    left-2/4 overflow-hidden top-0 bottom-0        h-full    -z-40    box-border     "
+                        :src="song.imageUrl ? song.imageUrl : tempImg" alt=""></div>
+
                 <div class="container mx-auto px-4 flex items-center">
-                    
+
                     <!-- Play/Pause Button -->
                     <button type="button" @click.prevent="playSong()"
                         class="z-50 h-20 w-20 flex-none  lg:w-24 lg:h-24 border-white   lg:text-3xl text-xl bg-red-700 text-white border-8 border-red rounded-full focus:outline-none">
                         <i class="fas  " :class="toggole()"></i>
                     </button>
                     <div class="z-50 text-left ml-8">
+
                         <!-- Song Info -->
                         <div class="text-md pb- lg:text-2xl font-bold">{{ song.modefied_name }}</div>
+                        
 
 
-                        <router-link  :to="{ name: 'singer', params: { id: song.singerID } }">
-                            <div class="lg:text-xl  text-md pt-2"><span class="   font-medium ">{{ $t('artist') }}: </span> <span class=" font-semibold underline"> {{ getSingerName }}</span></div>
+                        <router-link :to="{ name: 'singer', params: { id: song.singerID } }">
+                            <div class="lg:text-xl  text-md pt-2"><span class="   font-medium ">{{ $t('artist') }}: </span>
+                                <span class=" font-semibold underline"> {{ getSingerName }}</span></div>
                         </router-link>
-                        <div v-show="song.source" class="  pt-4 inset-5 text-xs lg:text-lg font-bold"><a  :href="song.source">Song Source</a></div>
+                        <div v-show="song.source" class="  pt-4 inset-5 text-xs lg:text-lg font-bold"><a
+                                :href="song.source">Song Source</a></div>
 
                     </div>
                 </div>
@@ -43,6 +59,7 @@
                                 song.comments_count
                         }) }}</span>
                     </div>
+                    
                     <div class="p-6">
                         <div :class="comment_alert_variant" class="text-white text-center font-bold p-4 mb-4"
                             v-if="comment_show_alert">
@@ -71,7 +88,7 @@
                 </div>
             </section>
             <!-- Comments -->
-            <ul class="container mx-auto" >
+            <ul class="container mx-auto">
                 <li class="p-6 bg-gray-50 border border-gray-200" v-for="comment in sortedComments" :key="comment.id">
                     <!-- Comment Author -->
                     <div class="mb-5">
@@ -99,6 +116,7 @@ import { onBeforeRouteLeave } from "vue-router";
 
 
 
+
 export default {
     name: "Song",
     created() {
@@ -107,6 +125,9 @@ export default {
 
     data() {
         return {
+            title: '',
+            url: '',
+            text: '',
             song: {},
             comments: [],
             sort: '1',
@@ -138,7 +159,13 @@ export default {
                 ...snapshot.data(),
                 id: snapshot.id
             }
+vm.title= 'Rhythms of Sudan';
+vm.text= `${vm.song.modefied_name} (${vm.song.singer_arabic_name})`;
+vm.url=`https://rhythmsofsudan.online/song/${vm.song.id}`;
+
+
             vm.getComments();
+            
 
 
         })
@@ -167,6 +194,26 @@ export default {
     },
 
     methods: {
+        async shareContent() {
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: this.title,
+                    
+                        url: this.url,
+                        text: this.text
+                    });
+                    console.log('Content shared successfully');
+                } catch (error) {
+                    console.error('Error sharing:', error);
+                    // Fallback to other sharing methods if needed
+                }
+            } else {
+                console.warn('Web Share API not supported');
+                // Implement alternative sharing mechanisms
+            }
+        }
+        ,
         ...mapActions(usePlayerStore, ['newSong', 'toggleSong']),
         getCommentDate(date) {
             console.log(date);
